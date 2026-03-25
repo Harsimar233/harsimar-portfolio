@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harsimar Singh — Web3 Community Lead</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #14b8a0;
+    --teal-dim: rgba(20,184,160,0.08);
+    --teal-border: rgba(20,184,160,0.25);
+    --bg: #0c0c0c;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --border: #222222;
+    --border2: #2a2a2a;
+    --text: #e2e2e2;
+    --muted: #666666;
+    --muted2: #888888;
+    --white: #f5f5f5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* SIDEBAR NAV */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 220px;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 28px;
+    z-index: 100;
+  }
+
+  .sidebar-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-title {
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+    font-weight: 500;
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .sidebar-nav a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--muted2);
+    border-radius: 4px;
+    transition: all 0.15s;
+    font-weight: 400;
+  }
+
+  .sidebar-nav a:hover {
+    color: var(--white);
+    background: var(--bg3);
+  }
+
+  .sidebar-nav a.active {
+    color: var(--teal);
+    background: var(--teal-dim);
+  }
+
+  .sidebar-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    margin-left: 220px;
+    min-height: 100vh;
+  }
+
+  .section {
+    max-width: 720px;
+    padding: 72px 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 56px 72px;
+    max-width: 720px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4.5vw, 54px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--muted2);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  /* STATS ROW */
+  .stats {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+
+  .stat {
+    flex: 1;
+    padding: 18px 20px;
+    background: var(--bg2);
+    border-right: 1px solid var(--border2);
+    transition: background 0.2s;
+  }
+
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: var(--bg3); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  /* BUTTONS */
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s;
+    cursor: pointer;
+    border: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-teal {
+    background: var(--teal);
+    color: #051a18;
+    font-weight: 600;
+  }
+
+  .btn-teal:hover { background: #0fd4b8; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted2);
+    border: 1px solid var(--border2);
+  }
+
+  .btn-ghost:hover { border-color: var(--teal-border); color: var(--teal); }
+
+  /* SECTION TITLES */
+  .sec-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 28px;
+  }
+
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  /* EXPERIENCE */
+  .exp-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .exp-role {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .exp-date {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    padding-top: 2px;
+    font-weight: 400;
+  }
+
+  .exp-co {
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .exp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .exp-list li {
+    font-size: 13.5px;
+    color: #999;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.65;
+  }
+
+  .exp-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  /* CASE STUDIES */
+  .cases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .case {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 22px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .case:hover {
+    border-color: var(--teal-border);
+    transform: translateY(-2px);
+  }
+
+  .case-idx {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .case-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .case-co {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .case-desc {
+    font-size: 12.5px;
+    color: #777;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .case-result {
+    font-size: 11.5px;
+    color: var(--teal);
+    background: var(--teal-dim);
+    border: 1px solid var(--teal-border);
+    border-radius: 4px;
+    padding: 7px 10px;
+    line-height: 1.5;
+  }
+
+  /* SKILLS */
+  .skill-groups {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .skill-group {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+
+  .skill-group-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 11.5px;
+    padding: 3px 9px;
+    border-radius: 3px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--muted2);
+  }
+
+  /* CONTACT */
+  .contact-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--muted2);
+    transition: all 0.15s;
+  }
+
+  .contact-item:hover {
+    border-color: var(--teal-border);
+    color: var(--teal);
+  }
+
+  .c-icon {
+    font-size: 14px;
+    width: 18px;
+    text-align: center;
+    color: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    max-width: 720px;
+    padding: 28px 56px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .hero, .section { padding: 48px 24px; }
+    .cases, .skill-groups, .contact-items { grid-template-columns: 1fr; }
+    .stats { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border2); }
+    .stat:last-child { border-bottom: none; }
+    .footer { padding: 24px; flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-name">Harsimar<br>Singh</div>
+  <div class="sidebar-title">Web3 Community Lead</div>
+  <ul class="sidebar-nav">
+    <li><a href="#about" class="active">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#cases">Case Studies</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="sidebar-status">
+    <div class="dot"></div>
+    Open to work
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero" id="about">
+    <div class="hero-eyebrow">Web3 Community Lead · 5+ Years · Remote</div>
+    <h1>Building communities<br>that actually ship.</h1>
+    <p class="hero-desc">I build the community infrastructure early-stage Web3 projects need to grow — ambassador programs, on-chain activation funnels, KOL networks, and DAO governance systems. Crypto-native since 2019.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">80K+</div>
+        <div class="stat-label">Members Built</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10,000</div>
+        <div class="stat-label">Wallets Activated</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">$0.50–$2</div>
+        <div class="stat-label">Blended CAC</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">14</div>
+        <div class="stat-label">Regions Scaled</div>
+      </div>
+    </div>
+
+    <div class="btns">
+      <a href="mailto:Harsimar233@gmail.com" class="btn btn-teal">✉ Get in touch</a>
+      <a href="https://linkedin.com/in/harsimar-singh-2b9033166" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+      <a href="https://harsimar233.github.io/harsimar-portfolio/Harsimar_Singh_Resume_Final.docx" download="Harsimar_Singh_Resume.docx" class="btn btn-ghost">↓ Resume</a>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section" id="experience">
+    <div class="sec-label">Experience</div>
+
+    <div class="exp-item">
+      <div class="exp-top">
+        <div class="exp-role">Community & Ambassador Lead</div>
+        <div class="exp-date">Mar 2025 – Feb 2026 · Remote</div>
+      </div>
+      <div class="exp-co">Cloudless Labs — DePIN Protocol</div>
+      <ul class="exp-list">
+        <li>Scaled ambassador program from 0 to 14 active regional contributors by screening 500+ applicants for mission alignment and FUD-resistance.</li>
+        <li>Drove 5x growth in contributor output and ~200K impressions per Zealy campaign cycle by owning the full KPI framework.</li>
+        <li>Maintained community health through bear cycles — daily sentiment tracking, misinformation control, long-term mission focus.</li>
+        <li>Served as primary feedback loop between community and core team, feeding ground-level insights into product and roadmap decisions.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-top">
+        <div class="exp-role">Community Lead</div>
+        <div class="exp-date">Oct 2024 – Mar 2025 · Remote</div>
+      </div>
+      <div class="exp-co">KernelDAO — DeFi Protocol</div>
+      <ul class="exp-list">
+        <li>Managed daily ops of a 30,000+ member DeFi community across Discord and Telegram — moderation, governance, contributor coordination.</li>
+        <li>Built moderation framework, escalation protocols, and onboarding docs enabling independent ops at scale without core team involvement.</li>
+        <li>Improved new member retention and reduced escalation frequency through structured onboarding and governance transparency.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-top">
+        <div class="exp-role">Marketing Manager & Ambassador Lead</div>
+        <div class="exp-date">Nov 2023 – Oct 2024 · Remote</div>
+      </div>
+      <div class="exp-co">NFTScan — NFT Protocol</div>
+      <ul class="exp-list">
+        <li>Grew Discord from 0 to 80,000+ members with 1,000+ DAU via ambassador network, KOL partnerships, and go-to-market campaigns.</li>
+        <li>Built on-chain activation funnel producing 10,000 net-new wallets at $0.50–$2 blended CAC on a $5K budget with 100% first on-chain tx rate.</li>
+        <li>Sustained 30%+ repeat participation post-launch through gamified incentive loops and retention campaigns.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CASE STUDIES -->
+  <div class="section" id="cases">
+    <div class="sec-label">Case Studies</div>
+    <div class="cases">
+      <div class="case">
+        <div class="case-idx">Case 01</div>
+        <div class="case-title">0 → 80K Discord in One Growth Phase</div>
+        <div class="case-co">NFTScan · NFT Protocol</div>
+        <div class="case-desc">Built the full growth stack: ambassador network, KOL calendar, gated onboarding tasks, and wallet activation funnel — all on a $5K budget.</div>
+        <div class="case-result">10,000 wallets · $0.50–$2 CAC · 100% on-chain rate</div>
+      </div>
+      <div class="case">
+        <div class="case-idx">Case 02</div>
+        <div class="case-title">Ambassador Program Built from Scratch</div>
+        <div class="case-co">Cloudless Labs · DePIN Protocol</div>
+        <div class="case-desc">Designed full selection process, screening criteria, onboarding docs, and KPI framework for a 14-region program. 500+ applicants screened.</div>
+        <div class="case-result">5x contributor output · 200K impressions/cycle</div>
+      </div>
+      <div class="case">
+        <div class="case-idx">Case 03</div>
+        <div class="case-title">30K Community Ops System</div>
+        <div class="case-co">KernelDAO · DeFi Protocol</div>
+        <div class="case-desc">Built moderation, escalation, and onboarding infrastructure for a 30K+ member DAO to operate without core team dependency.</div>
+        <div class="case-result">Independent ops at scale · Zero escalation dependency</div>
+      </div>
+      <div class="case">
+        <div class="case-idx">Case 04</div>
+        <div class="case-title">Bear Market Community Retention</div>
+        <div class="case-co">Multi-protocol · 2022–2024</div>
+        <div class="case-desc">Kept communities engaged through multiple bear cycles using sentiment tracking, FUD management, and mission-first framing.</div>
+        <div class="case-result">Stable communities through -80% market drawdowns</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section" id="skills">
+    <div class="sec-label">Skills & Tools</div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <div class="skill-group-name">Community & Growth</div>
+        <div class="tags">
+          <span class="tag">Ambassador Programs</span>
+          <span class="tag">DAO Governance</span>
+          <span class="tag">KOL Management</span>
+          <span class="tag">FUD Management</span>
+          <span class="tag">Retention Design</span>
+          <span class="tag">Go-to-Market</span>
+          <span class="tag">Growth Hacking</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Web3 & On-Chain</div>
+        <div class="tags">
+          <span class="tag">Wallet Activation</span>
+          <span class="tag">Gating Systems</span>
+          <span class="tag">On-Chain Acquisition</span>
+          <span class="tag">Tokenomics</span>
+          <span class="tag">Snapshot Governance</span>
+          <span class="tag">DePIN</span>
+          <span class="tag">DeFi</span>
+          <span class="tag">NFT</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Platforms</div>
+        <div class="tags">
+          <span class="tag">Discord</span>
+          <span class="tag">Telegram</span>
+          <span class="tag">Zealy</span>
+          <span class="tag">Galxe</span>
+          <span class="tag">Guild.xyz</span>
+          <span class="tag">Layer3</span>
+          <span class="tag">Farcaster</span>
+          <span class="tag">Coordinape</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Tools & Analytics</div>
+        <div class="tags">
+          <span class="tag">Dune Analytics</span>
+          <span class="tag">Notion</span>
+          <span class="tag">Twitter/X</span>
+          <span class="tag">Typeform</span>
+          <span class="tag">Intercom</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section" id="contact">
+    <div class="sec-label">Contact</div>
+    <div class="sec-title">Let's work together.</div>
+    <p style="color: var(--muted); margin-bottom: 24px; font-size: 14px;">Open to remote Web3 community, growth, and ambassador roles. Based in Delhi, India.</p>
+    <div class="contact-items">
+      <a href="mailto:Harsimar233@gmail.com" class="contact-item">
+        <span class="c-icon">✉</span> Harsimar233@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/harsimar-singh-2b9033166" target="_blank" class="contact-item">
+        <span class="c-icon">in</span> LinkedIn Profile
+      </a>
+      <a href="tel:+919560445007" class="contact-item">
+        <span class="c-icon">☎</span> +91 9560445007
+      </a>
+      <a href="https://harsimar233.github.io/harsimar-portfolio/Harsimar_Singh_Resume_Final.docx" download="Harsimar_Singh_Resume.docx" class="contact-item">
+        <span class="c-icon">↓</span> Download Resume
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>© 2026 Harsimar Singh</span>
+    <span>Delhi, India · Remote-Ready</span>
+  </div>
+
+</main>
+
+<script>
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
